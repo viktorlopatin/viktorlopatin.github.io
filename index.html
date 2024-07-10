@@ -35,39 +35,36 @@
     <script>
         async function addYadCoin() {
             const tokenAddress = "0x949860b24F327857b315303a82cd1e87b8160653";
-const tokenSymbol = "YAD";
-const tokenDecimals = 18;
-const tokenImage = "https://telegra.ph/file/293d5bce75321a013e1f1.png";
+            const tokenSymbol = "YAD";
+            const tokenDecimals = 18;
+            const tokenImage = "https://telegra.ph/file/293d5bce75321a013e1f1.png";
 
-try {
-  // 'wasAdded' is a boolean. Like any RPC method, an error can be thrown.
-  const wasAdded = await provider // Or window.ethereum if you don't support EIP-6963.
-    .request({
-      method: "wallet_watchAsset",
-      params: {
-        type: "ERC20",
-        options: {
-          // The address of the token.
-          address: tokenAddress,
-          // A ticker symbol or shorthand, up to 5 characters.
-          symbol: tokenSymbol,
-          // The number of decimals in the token.
-          decimals: tokenDecimals,
-          // A string URL of the token logo.
-          image: tokenImage,
-        },
-      },
-    });
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const wasAdded = await window.ethereum.request({
+                        method: "wallet_watchAsset",
+                        params: {
+                            type: "ERC20",
+                            options: {
+                                address: tokenAddress,
+                                symbol: tokenSymbol,
+                                decimals: tokenDecimals,
+                                image: tokenImage,
+                            },
+                        },
+                    });
 
-  if (wasAdded) {
-    console.log("Thanks for your interest!");
-  } else {
-    console.log("Your loss!");
-  }
-} catch (error) {
-    console.log(error);
-  console.log(error);
-}
+                    if (wasAdded) {
+                        console.log("Thanks for your interest!");
+                    } else {
+                        console.log("Your loss!");
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                console.log('Metamask is not installed');
+            }
         }
     </script>
 </body>
