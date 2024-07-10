@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add YAD Coin to Metamask</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .button {
+            padding: 15px 25px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <button class="button" onclick="addYadCoin()">Add YAD Coin in Metamask</button>
+
+    <script>
+        async function addYadCoin() {
+            const tokenAddress = "0x949860b24F327857b315303a82cd1e87b8160653";
+const tokenSymbol = "YAD";
+const tokenDecimals = 18;
+const tokenImage = "https://telegra.ph/file/293d5bce75321a013e1f1.png";
+
+try {
+  // 'wasAdded' is a boolean. Like any RPC method, an error can be thrown.
+  const wasAdded = await provider // Or window.ethereum if you don't support EIP-6963.
+    .request({
+      method: "wallet_watchAsset",
+      params: {
+        type: "ERC20",
+        options: {
+          // The address of the token.
+          address: tokenAddress,
+          // A ticker symbol or shorthand, up to 5 characters.
+          symbol: tokenSymbol,
+          // The number of decimals in the token.
+          decimals: tokenDecimals,
+          // A string URL of the token logo.
+          image: tokenImage,
+        },
+      },
+    });
+
+  if (wasAdded) {
+    console.log("Thanks for your interest!");
+  } else {
+    console.log("Your loss!");
+  }
+} catch (error) {
+    console.log(error);
+  console.log(error);
+}
+        }
+    </script>
+</body>
+</html>
