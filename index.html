@@ -3,69 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add YAD Coin to Metamask</title>
+    <title>Add YAD Music Coin to MetaMask</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
         }
-        .button {
-            padding: 15px 25px;
+        h1 {
+            font-size: 24px;
+        }
+        p {
             font-size: 18px;
+        }
+        button {
+            background-color: #f0a500;
             color: white;
-            background-color: #007bff;
+            padding: 15px 30px;
             border: none;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 300px;
         }
-        .button:hover {
-            background-color: #0056b3;
+        button:hover {
+            background-color: #e59400;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 16px;
+            }
+            button {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="button" onclick="addYadCoin()">Add YAD Coin in Metamask</button>
+
+    <h1>Add YAD Music Coin to MetaMask</h1>
+    <p>Click the button below to add YAD Music Coin to your MetaMask wallet on the Polygon network.</p>
+    <button id="addTokenButton">Add YAD Music Coin</button>
 
     <script>
-        async function addYadCoin() {
-            const tokenAddress = "0x949860b24F327857b315303a82cd1e87b8160653";
-            const tokenSymbol = "YAD";
-            const tokenDecimals = 18;
-            const tokenImage = "https://telegra.ph/file/eed7c04e9ab03f8f5ef8b.jpg";
+        document.getElementById('addTokenButton').addEventListener('click', async () => {
+            try {
+                if (typeof window.ethereum !== 'undefined') {
+                    const tokenAddress = '0x949860b24F327857b315303a82cd1e87b8160653'; // Адреса вашого токена
+                    const tokenSymbol = 'YAD'; // Символ вашого токена
+                    const tokenDecimals = 18; // Десяткові числа вашого токена
+                    const tokenImage = 'https://telegra.ph/file/eed7c04e9ab03f8f5ef8b.jpg'; // URL-адреса зображення токена
 
-            if (typeof window.ethereum !== 'undefined') {
-                try {
+                    const chainId = await ethereum.request({ method: 'eth_chainId' });
+                    
+                    if (chainId !== '0x89') { // Перевірка на Polygon (chainId 137 у hex — 0x89)
+                        try {
+                            await ethereum.request({
+                                method: 'wallet_switchEthereumChain',
+                                params: [{ chainId: '0x89' }], // Перемикання на мережу Polygon
+                            });
+                        } catch (switchError) {
+                            console.error(switchError);
+                            return;
+                        }
+                    }
+
                     const wasAdded = await window.ethereum.request({
-                        method: "wallet_watchAsset",
+                        method: 'wallet_watchAsset',
                         params: {
-                            type: "ERC20",
+                            type: 'ERC20', // Тип токена
                             options: {
-                                address: tokenAddress,
-                                symbol: tokenSymbol,
-                                decimals: tokenDecimals,
-                                image: tokenImage,
+                                address: tokenAddress, // Адреса токена
+                                symbol: tokenSymbol, // Символ токена
+                                decimals: tokenDecimals, // Кількість десяткових знаків
+                                image: tokenImage, // Зображення токена
                             },
                         },
                     });
 
                     if (wasAdded) {
-                        console.log("Thanks for your interest!");
+                        console.log('Token was added!');
                     } else {
-                        console.log("Your loss!");
+                        console.log('Token was not added.');
                     }
-                } catch (error) {
-                    console.error(error);
+                } else {
+                    console.log('MetaMask is not installed.');
+                    alert('Please install Meta,Mask to add the token.');
                 }
-            } else {
-                console.log('Metamask is not installed');
+            } catch (error) {
+                console.error(error);
             }
-        }
+        });
     </script>
+
 </body>
 </html>
