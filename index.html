@@ -16,31 +16,18 @@
         p {
             font-size: 18px;
         }
-        button {
+        a {
             background-color: #f0a500;
             color: white;
             padding: 15px 30px;
-            border: none;
             border-radius: 5px;
             font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            max-width: 300px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
         }
-        button:hover {
+        a:hover {
             background-color: #e59400;
-        }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 20px;
-            }
-            p {
-                font-size: 16px;
-            }
-            button {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
         }
     </style>
 </head>
@@ -48,58 +35,7 @@
 
     <h1>Add YAD Music Coin to MetaMask</h1>
     <p>Click the button below to add YAD Music Coin to your MetaMask wallet on the Polygon network.</p>
-    <button id="addTokenButton">Add YAD Music Coin</button>
-
-    <script>
-        document.getElementById('addTokenButton').addEventListener('click', async () => {
-            try {
-                if (typeof window.ethereum !== 'undefined') {
-                    const tokenAddress = '0x949860b24F327857b315303a82cd1e87b8160653'; // Адреса вашого токена
-                    const tokenSymbol = 'YAD'; // Символ вашого токена
-                    const tokenDecimals = 18; // Десяткові числа вашого токена
-                    const tokenImage = 'https://telegra.ph/file/eed7c04e9ab03f8f5ef8b.jpg'; // URL-адреса зображення токена
-
-                    const chainId = await ethereum.request({ method: 'eth_chainId' });
-                    
-                    if (chainId !== '0x89') { // Перевірка на Polygon (chainId 137 у hex — 0x89)
-                        try {
-                            await ethereum.request({
-                                method: 'wallet_switchEthereumChain',
-                                params: [{ chainId: '0x89' }], // Перемикання на мережу Polygon
-                            });
-                        } catch (switchError) {
-                            console.error(switchError);
-                            return;
-                        }
-                    }
-
-                    const wasAdded = await window.ethereum.request({
-                        method: 'wallet_watchAsset',
-                        params: {
-                            type: 'ERC20', // Тип токена
-                            options: {
-                                address: tokenAddress, // Адреса токена
-                                symbol: tokenSymbol, // Символ токена
-                                decimals: tokenDecimals, // Кількість десяткових знаків
-                                image: tokenImage, // Зображення токена
-                            },
-                        },
-                    });
-
-                    if (wasAdded) {
-                        console.log('Token was added!');
-                    } else {
-                        console.log('Token was not added.');
-                    }
-                } else {
-                    console.log('MetaMask is not installed.');
-                    alert('Please install Meta,Mask to add the token.');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        });
-    </script>
+    <a href="ethereum:1@1/addToken?contractAddress=0x227c7DF69D3ed1ae7574A1a7685fDEd90292EB48&symbol=MILADY&decimals=18">Add MILADY Coin</a>
 
 </body>
 </html>
