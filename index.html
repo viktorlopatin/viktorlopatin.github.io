@@ -3,39 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add YAD Music Coin to MetaMask</title>
+    <title>Add YAD Coin to Metamask</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            background-color: #f0f0f0;
         }
-        h1 {
-            font-size: 24px;
-        }
-        p {
+        .button {
+            padding: 15px 25px;
             font-size: 18px;
-        }
-        a {
-            background-color: #f0a500;
             color: white;
-            padding: 15px 30px;
+            background-color: #007bff;
+            border: none;
             border-radius: 5px;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        a:hover {
-            background-color: #e59400;
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
+    <button class="button" onclick="addYadCoin()">Add YAD Coin in Metamask</button>
 
-    <h1>Add YAD Music Coin to MetaMask</h1>
-    <p>Click the button below to add YAD Music Coin to your MetaMask wallet on the Polygon network.</p>
-    <a href="ethereum:1@1/addToken?contractAddress=0x227c7DF69D3ed1ae7574A1a7685fDEd90292EB48&symbol=MILADY&decimals=18">Add MILADY Coin</a>
+    <script>
+        async function addYadCoin() {
+            const tokenAddress = "0x949860b24F327857b315303a82cd1e87b8160653";
+            const tokenSymbol = "YAD";
+            const tokenDecimals = 18;
+            const tokenImage = "https://telegra.ph/file/eed7c04e9ab03f8f5ef8b.jpg";
 
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const wasAdded = await window.ethereum.request({
+                        method: "wallet_watchAsset",
+                        params: {
+                            type: "ERC20",
+                            options: {
+                                address: tokenAddress,
+                                symbol: tokenSymbol,
+                                decimals: tokenDecimals,
+                                image: tokenImage,
+                            },
+                        },
+                    });
+
+                    if (wasAdded) {
+                        console.log("Thanks for your interest!");
+                    } else {
+                        console.log("Your loss!");
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                console.log('Metamask is not installed');
+            }
+        }
+    </script>
 </body>
 </html>
