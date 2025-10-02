@@ -1,105 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add YAD Music Coin to MetaMask</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 24px;
-        }
-        p {
-            font-size: 18px;
-        }
-        button {
-            background-color: #f0a500;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            max-width: 300px;
-        }
-        button:hover {
-            background-color: #e59400;
-        }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 20px;
-            }
-            p {
-                font-size: 16px;
-            }
-            button {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Free QR Code Generator | QrCode Maker</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Free online QR Code Generator: create QR codes for websites, messages, contacts and more. Fast, easy and reliable QR maker." />
+  <meta name="keywords" content="qr code, qr code generator, create qr online, free qr maker" />
+  <meta name="author" content="QrCode Maker" />
+  <link rel="canonical" href="https://example.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free QR Code Generator | QrCode Maker" />
+  <meta property="og:description" content="Create QR codes online for free. Use them for websites, contacts, Wi-Fi access and more." />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:image" content="https://example.com/preview.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free QR Code Generator | QrCode Maker" />
+  <meta name="twitter:description" content="Create QR codes online for free. Use them for websites, contacts, Wi-Fi access and more." />
+  <meta name="twitter:image" content="https://example.com/preview.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" alt="QR Code Icon" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QrCode Maker",
+    "url": "https://example.com/",
+    "description": "Free online QR Code Generator for text and links.",
+    "applicationCategory": "Utility",
+    "operatingSystem": "Any"
+  }
+  </script>
 </head>
 <body>
 
-    <h1>Add YAD Music Coin to MetaMask</h1>
-    <p>Click the button below to add YAD Music Coin to your MetaMask wallet on the Polygon network.</p>
-    <button id="addTokenButton">Add YAD Music Coin</button>
+	
 
-    <script>
-        document.getElementById('addTokenButton').addEventListener('click', async () => {
-            try {
-                if (typeof window.ethereum !== 'undefined') {
-                    const tokenAddress = '0x949860b24F327857b315303a82cd1e87b8160653'; // Адреса вашого токена
-                    const tokenSymbol = 'YAD'; // Символ вашого токена
-                    const tokenDecimals = 18; // Десяткові числа вашого токена
-                    const tokenImage = 'https://telegra.ph/file/eed7c04e9ab03f8f5ef8b.jpg'; // URL-адреса зображення токена
 
-                    const chainId = await ethereum.request({ method: 'eth_chainId' });
-                    
-                    if (chainId !== '0x89') { // Перевірка на Polygon (chainId 137 у hex — 0x89)
-                        try {
-                            await ethereum.request({
-                                method: 'wallet_switchEthereumChain',
-                                params: [{ chainId: '0x89' }], // Перемикання на мережу Polygon
-                            });
-                        } catch (switchError) {
-                            console.error(switchError);
-                            return;
-                        }
-                    }
+	<!-- Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-EL3BN43W9V"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'G-EL3BN43W9V');
+	  gtag('config', 'AW-17558991000');
+	</script>
 
-                    const wasAdded = await window.ethereum.request({
-                        method: 'wallet_watchAsset',
-                        params: {
-                            type: 'ERC20', // Тип токена
-                            options: {
-                                address: tokenAddress, // Адреса токена
-                                symbol: tokenSymbol, // Символ токена
-                                decimals: tokenDecimals, // Кількість десяткових знаків
-                                image: tokenImage, // Зображення токена
-                            },
-                        },
-                    });
+  <main class="page">
+    <div class="container">
+      <h1 class="logo">Free QR Code Generator</h1>
 
-                    if (wasAdded) {
-                        console.log('Token was added!');
-                    } else {
-                        console.log('Token was not added.');
-                    }
-                } else {
-                    console.log('MetaMask is not installed.');
-                    alert('Please install Meta,Mask to add the token.');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        });
-    </script>
+      <div class="input-row">
+        <input id="text-input" type="text" placeholder="Enter text or link..." autocomplete="off" aria-label="Enter text or link for QR code" />
+        <button id="make-btn" class="primary">Generate</button>
+      </div>
 
+      <h2 class="hint">
+        Fast and free QR code generator. Create QR codes for websites, messages, Wi-Fi access, business cards, or any other information.
+      </h2>
+
+      <div id="installPrompt">
+	      <hr class="divider">
+
+	      <div class="install-card hidden">
+			  <span class="install-text">Install this app for quick access</span>
+			  <button id="installBtn" class="primary danger">Install</button>
+			</div>
+	 	</div>
+
+
+
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button id="close-modal" class="modal-close" aria-label="Close">×</button>
+      <header class="modal-header">
+        <h2 id="modal-title">Your QR Code</h2>
+      </header>
+      <section class="modal-body">
+        <div id="qrcode" class="qrcode-wrap" aria-hidden="false"></div>
+        <div id="qr-meta" class="meta">
+          <div class="meta-line">
+            <label>Content</label>
+            <div id="qr-text" class="meta-text"></div>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-footer">
+        <div class="qr-buttons">
+          <button id="download-btn" class="secondary">Download</button>
+          <button id="copy-btn" class="secondary">Copy</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- QRCode.js -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
