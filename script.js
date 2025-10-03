@@ -230,9 +230,9 @@ function updateInstallButton() {
     installBtnDiv.style.display = 'none';
   }
 }
-
+updateInstallButton();
 // перевірка щосекунди
-setInterval(updateInstallButton, 1000);
+setInterval(updateInstallButton, 5000);
 
 
 
