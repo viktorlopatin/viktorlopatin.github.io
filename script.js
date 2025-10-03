@@ -235,27 +235,58 @@ updateInstallButton();
 setInterval(updateInstallButton, 5000);
 
 
-
-// Theme toggle
+// Theme toggle with cinematic ripple
 const themeBtn = document.getElementById("themeBtn");
 const currentTheme = localStorage.getItem("theme");
 
 if (currentTheme === "dark") {
   document.body.classList.add("dark-mode");
   themeBtn.textContent = "☀️";
+} else {
+  themeBtn.textContent = "🌙";
 }
 
-themeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  let theme = "light";
+themeBtn.addEventListener("click", (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
 
-  if (document.body.classList.contains("dark-mode")) {
-    theme = "dark";
-    themeBtn.textContent = "☀️";
-  } else {
-    themeBtn.textContent = "🌙";
-  }
+  const rippleColor = document.body.classList.contains("dark-mode") ? "#fff" : "#000";
 
-  localStorage.setItem("theme", theme);
+  document.body.style.setProperty("--ripple-x", `${x}px`);
+  document.body.style.setProperty("--ripple-y", `${y}px`);
+  document.body.style.setProperty("--ripple-color", rippleColor);
+
+  // Додаємо ripple
+  document.body.classList.add("theme-ripple");
+
+  // Каскадна затримка для всіх елементів
+  document.querySelectorAll("body *").forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const dx = rect.left + rect.width/2 - x;
+    const dy = rect.top + rect.height/2 - y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    el.style.setProperty("--distance", dist);
+  });
+
+  // Перемикаємо тему під час ripple
+  setTimeout(() => {
+    document.body.classList.toggle("dark-mode");
+
+    let theme = "light";
+    if (document.body.classList.contains("dark-mode")) {
+      theme = "dark";
+      themeBtn.textContent = "☀️";
+    } else {
+      themeBtn.textContent = "🌙";
+    }
+    localStorage.setItem("theme", theme);
+  }, 200);
+
+  // Прибираємо ripple після завершення
+  setTimeout(() => {
+    document.body.classList.remove("theme-ripple");
+    document.querySelectorAll("body *").forEach(el => {
+      el.style.removeProperty("--distance");
+    });
+  }, 900);
 });
-

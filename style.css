@@ -433,3 +433,54 @@ button.primary.danger:hover {
 #installPrompt {
   display: none;
 }
+
+/* Плавна зміна кольорів */
+body, body * {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+
+/* Хвиля */
+body::before {
+  content: "";
+  position: fixed;
+  top: var(--ripple-y);
+  left: var(--ripple-x);
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, var(--ripple-color, #fff) 0%, transparent 80%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.7;
+  filter: blur(10px);
+}
+
+/* Запуск ripple */
+body.theme-ripple::before {
+  animation: rippleExpand 0.8s ease-out forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+  }
+  50% {
+    width: 150vmax;
+    height: 150vmax;
+    opacity: 0.4;
+  }
+  100% {
+    width: 300vmax;
+    height: 300vmax;
+    opacity: 0;
+  }
+}
+
+/* 🎇 Каскадний ефект: елементи міняють кольори з затримкою */
+body.theme-ripple * {
+  transition-delay: calc( (var(--distance, 0) * 1ms) );
+}
+
