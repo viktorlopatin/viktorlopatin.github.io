@@ -230,12 +230,11 @@ function updateInstallButton() {
     installBtnDiv.style.display = 'none';
   }
 }
-updateInstallButton();
+updateInstallButton()
 // перевірка щосекунди
 setInterval(updateInstallButton, 5000);
 
 
-// Theme toggle with cinematic ripple
 const themeBtn = document.getElementById("themeBtn");
 const currentTheme = localStorage.getItem("theme");
 
@@ -249,44 +248,25 @@ if (currentTheme === "dark") {
 themeBtn.addEventListener("click", (e) => {
   const x = e.clientX;
   const y = e.clientY;
-
   const rippleColor = document.body.classList.contains("dark-mode") ? "#fff" : "#000";
 
   document.body.style.setProperty("--ripple-x", `${x}px`);
   document.body.style.setProperty("--ripple-y", `${y}px`);
   document.body.style.setProperty("--ripple-color", rippleColor);
 
-  // Додаємо ripple
+  // Запускаємо ripple
   document.body.classList.add("theme-ripple");
 
-  // Каскадна затримка для всіх елементів
-  document.querySelectorAll("body *").forEach(el => {
-    const rect = el.getBoundingClientRect();
-    const dx = rect.left + rect.width/2 - x;
-    const dy = rect.top + rect.height/2 - y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    el.style.setProperty("--distance", dist);
-  });
-
-  // Перемикаємо тему під час ripple
+  // Перемикаємо тему після того, як ripple накриє екран
   setTimeout(() => {
     document.body.classList.toggle("dark-mode");
-
-    let theme = "light";
-    if (document.body.classList.contains("dark-mode")) {
-      theme = "dark";
-      themeBtn.textContent = "☀️";
-    } else {
-      themeBtn.textContent = "🌙";
-    }
+    let theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+    themeBtn.textContent = theme === "dark" ? "☀️" : "🌙";
     localStorage.setItem("theme", theme);
-  }, 200);
+  }, 350); // ~половина анімації ripple
 
   // Прибираємо ripple після завершення
   setTimeout(() => {
     document.body.classList.remove("theme-ripple");
-    document.querySelectorAll("body *").forEach(el => {
-      el.style.removeProperty("--distance");
-    });
-  }, 900);
+  }, 800);
 });
