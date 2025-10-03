@@ -233,3 +233,29 @@ function updateInstallButton() {
 
 // перевірка щосекунди
 setInterval(updateInstallButton, 1000);
+
+
+
+// Theme toggle
+const themeBtn = document.getElementById("themeBtn");
+const currentTheme = localStorage.getItem("theme");
+
+if (currentTheme === "dark") {
+  document.body.classList.add("dark-mode");
+  themeBtn.textContent = "☀️";
+}
+
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  let theme = "light";
+
+  if (document.body.classList.contains("dark-mode")) {
+    theme = "dark";
+    themeBtn.textContent = "☀️";
+  } else {
+    themeBtn.textContent = "🌙";
+  }
+
+  localStorage.setItem("theme", theme);
+});
+
