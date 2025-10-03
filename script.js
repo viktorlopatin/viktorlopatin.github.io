@@ -235,38 +235,27 @@ updateInstallButton()
 setInterval(updateInstallButton, 5000);
 
 
+
+// Theme toggle
 const themeBtn = document.getElementById("themeBtn");
 const currentTheme = localStorage.getItem("theme");
 
 if (currentTheme === "dark") {
   document.body.classList.add("dark-mode");
   themeBtn.textContent = "☀️";
-} else {
-  themeBtn.textContent = "🌙";
 }
 
-themeBtn.addEventListener("click", (e) => {
-  const x = e.clientX;
-  const y = e.clientY;
-  const rippleColor = document.body.classList.contains("dark-mode") ? "#fff" : "#000";
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  let theme = "light";
 
-  document.body.style.setProperty("--ripple-x", `${x}px`);
-  document.body.style.setProperty("--ripple-y", `${y}px`);
-  document.body.style.setProperty("--ripple-color", rippleColor);
+  if (document.body.classList.contains("dark-mode")) {
+    theme = "dark";
+    themeBtn.textContent = "☀️";
+  } else {
+    themeBtn.textContent = "🌙";
+  }
 
-  // Запускаємо ripple
-  document.body.classList.add("theme-ripple");
-
-  // Перемикаємо тему після того, як ripple накриє екран
-  setTimeout(() => {
-    document.body.classList.toggle("dark-mode");
-    let theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-    themeBtn.textContent = theme === "dark" ? "☀️" : "🌙";
-    localStorage.setItem("theme", theme);
-  }, 350); // ~половина анімації ripple
-
-  // Прибираємо ripple після завершення
-  setTimeout(() => {
-    document.body.classList.remove("theme-ripple");
-  }, 800);
+  localStorage.setItem("theme", theme);
 });
+
