@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "site.qrcode_maker.twa",
+      "sha256_cert_fingerprints":
+        ["8B:FC:40:83:BD:0B:BE:8D:76:84:B9:2C:64:4D:D3:81:FA:1C:AD:58:5C:CA:DF:8F:A7:67:76:FE:D0:41:CA:8E"] 
+    }
+  }
+]
