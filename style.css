@@ -435,3 +435,85 @@ button.primary.danger:hover {
 }
 
 
+/* === Плавний перехід генератор ↔ контент === */
+
+/* Початково контент прихований */
+.content-section {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(0px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.9s ease,
+    background 0.9s ease,
+    backdrop-filter 1.2s ease;
+  z-index: 10;
+}
+
+/* Коли зʼявляється контент */
+.content-section.visible {
+  background: rgba(255, 255, 255, 0.92);
+  opacity: 1;
+  backdrop-filter: blur(12px);
+  pointer-events: all;
+}
+
+/* Ефект затухання генератора */
+.page.dimmed {
+  filter: blur(8px) brightness(0.6);
+  transition: filter 1s ease;
+}
+
+/* Контейнер всередині контенту */
+.content-section .container {
+  max-width: 1580px;
+  margin: 0 20px;
+  padding: 40px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  transform: translateY(40px);
+  transition: transform 0.8s ease;
+}
+
+/* При появі контенту — легке підняття */
+.content-section.visible .container {
+  transform: translateY(0);
+}
+
+/* Текст */
+.content-section h2,
+.content-section h3 {
+  color: #111;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.content-section p,
+.content-section li {
+  color: #333;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.content-section ul,
+.content-section ol {
+  margin-left: 22px;
+}
+
+/* Легка адаптивність */
+@media (max-width: 700px) {
+  .content-section .container {
+    padding: 24px 18px;
+  }
+}

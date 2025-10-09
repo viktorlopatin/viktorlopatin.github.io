@@ -259,5 +259,19 @@ themeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", theme);
 });
 
+// === Ефект при скролі ===
+let scrolled = false;
+window.addEventListener('wheel', (e) => {
+  const main = document.querySelector('.page');
+  const section = document.querySelector('.content-section');
 
-
+  if (e.deltaY > 0 && !scrolled) {
+    scrolled = true;
+    main.classList.add('fade-out');
+    setTimeout(() => section.classList.add('visible'), 1);
+  } else if (e.deltaY < 0 && scrolled) {
+    scrolled = false;
+    section.classList.remove('visible');
+    setTimeout(() => main.classList.remove('fade-out'), 1);
+  }
+});
