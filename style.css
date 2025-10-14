@@ -1,436 +1,497 @@
-:root{
-  --bg-page: #f5f6fa;
-  --card-bg: #ffffff;
-  --card-shadow: rgba(0,0,0,0.1);
-  --text-color: #222222;
-  --accent1: #4facfe;
-  --accent2: #00f2fe;
-  --button-text: #ffffff;
+/* ---------------------------
+   PAPER MINIMALIST DESIGN
+---------------------------- */
+:root {
+  --bg-color: #fdfcf9;
+  --paper: #ffffff;
+  --text-color: #222;
+  --border: #e3e3e3;
+  --accent: #d1bfa7; /* теплий беж */
+  --radius: 14px;
+  --shadow: 0 3px 12px rgba(0,0,0,0.05);
+  --font: "Inter", "Segoe UI", system-ui, sans-serif;
 }
 
-/* Загальні стилі */
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter, sans-serif;}
-body {
+/* RESET */
+* {
   margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 32px;
-
-  /* Градієнт більший за екран */
-  background: linear-gradient(120deg, #e0f7fa, #fdfbfb, #e3f2fd);
-  background-size: 200% 200%;
-
-  /* Анімація руху */
-  animation: gradientMove 15s ease infinite;
-
-  font-family: Inter, sans-serif;
-  color: #222;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-
-
-/* Контейнер */
-.container{
-  background: var(--card-bg);
-  border-radius: 18px;
-  padding: 48px 40px;
-  width: 100%;
-  max-width: 700px;
-  box-shadow: 0 10px 30px var(--card-shadow);
-  text-align: center;
-}
-
-/* Заголовок */
-.logo{
-  margin:0 0 20px 0;
-  font-size: 34px;
-  font-weight: 700;
-  background: linear-gradient(90deg,var(--accent1),var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Поле вводу */
-.input-row{
-  gap:16px;
-  display:flex;
-  flex-direction: row;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:8px;
-}
-.input-row input{
-  width: 100%;
-  padding:14px 16px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  background: #fefefe;
+/* ---------------------------
+   BASE
+---------------------------- */
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  background: var(--bg-color);
   color: var(--text-color);
-  outline:none;
-  font-size:16px;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.input-row input:focus{
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-  border-color: var(--accent1);
+  line-height: 1.7;
+  scroll-behavior: smooth;
 }
 
-/* Кнопки */
-button{
-  cursor:pointer;
-  border:0;
-  padding:10px 16px;
-  border-radius:12px;
-  font-weight:600;
-  font-size:14px;
-  transition: transform .18s ease, box-shadow .18s ease;
+/* subtle lined-paper effect */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 23px,
+    rgba(0,0,0,0.02) 24px
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
-button.primary {
-  background: linear-gradient(90deg, #4facfe, #00f2fe, #4facfe);
-  background-size: 200% 200%;
-  animation: buttonGradientMove 6s ease infinite;
-
-  color: #ffffff;
-  border: 0;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-
-button.primary:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-@keyframes buttonGradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-
-button.secondary{
-  background: #f1f1f1;
-  color: var(--text-color);
-  padding:10px 14px;
-  border:1px solid #ddd;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-button.secondary:hover{ transform: translateY(-2px); }
-
-/* Підказка */
-.hint {
-  margin-top: 16px;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #333;
-  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-  padding: 12px 18px;
-  border-radius: 12px;
-  border: 1px solid #e0e0e0;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.04),
-              0 4px 12px rgba(0,0,0,0.06);
-  max-width: 540px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  font-weight: 500;
-  position: relative;
-}
-
-.hint::before {
-  content: "💡";
-  margin-right: 8px;
-  font-size: 16px;
-}
-
-
-/* Модаль */
-.modal{
-  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  background: rgba(0,0,0,0.15);
-  z-index:50;
-  padding:28px;
-  transition: opacity .18s ease;
-}
-.hidden{ display:none; }
-
-.modal-card{
-  width:400px;
-  max-width:92%;
-  border-radius:14px;
-  padding:18px 18px 14px 18px;
-  background: var(--card-bg);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-  backdrop-filter: blur(4px);
-  transform-origin:center;
-  animation: popIn .38s cubic-bezier(.16,.9,.3,1);
-  position:relative;
-}
-
-/* Анімація */
-@keyframes popIn{
-  from{ transform: translateY(-20px) scale(.95); opacity:0 }
-  to{ transform: translateY(0) scale(1); opacity:1 }
-}
-
-/* Закриття */
-.modal-close{
-  position:absolute; right:12px; top:8px;
-  background:transparent; color: var(--text-color);
-  font-size:22px; line-height:1; width:36px; height:36px; border-radius:10px;
-  display:inline-flex; align-items:center; justify-content:center;
-  transition: transform .12s ease, background .12s ease;
-}
-.modal-close:hover{ transform:scale(1.06); background: rgba(0,0,0,0.03); }
-
-/* Modal header */
-.modal-header h2 { margin:6px 0 8px 0; font-size:18px; color: var(--text-color) }
-
-/* Центрування контенту модалки */
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-}
-
-/* QR wrap */
-.qrcode-wrap{
-  margin: 0 auto 8px auto;
-  display: block;
-  padding:12px;
-  background:#ffffff;
-  border-radius:10px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-}
-
-/* Meta */
-.meta { margin-top:10px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; }
-.meta-line label{ font-size:12px; opacity:0.7; display:block; margin-bottom:6px; color: #555 }
-.meta-text{
-  max-width:500px;
-  word-break: break-word;
-  background: #f7f7f7;
-  padding:8px 12px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  font-size:13px;
-  color: #222;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-}
-
-/* Footer */
-.modal-footer{ margin-top:12px; display:flex; justify-content:center; gap:12px; }
-
-/* Toast */
-.toast{
-  position:fixed; left:50%; transform:translateX(-50%) translateY(0); bottom:28px;
-  background: rgba(0,0,0,0.6);
-  color:#fff; padding:10px 16px; border-radius:12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  font-weight:600; z-index:80; opacity:0; transition: opacity .18s ease, transform .18s ease;
-}
-.toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
-
-/* Блок Install App */
-/* Блок Install App */
-.install-card {
-  margin: 24px auto 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 16px 18px;
-  border-radius: 14px;
-
-  /* М’який фон */
-  background: linear-gradient(135deg, #fffdfd, #fdf3f3);
-  border: 1px solid #f1dcdc;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-
-  max-width: 540px;
-  text-align: left;
-
-  /* Тонка чорна лінія зверху */
-  border-top: 2px solid #000;
-}
-
-
-/* Текст */
-.install-card .install-text {
-  font-size: 15px;
-  color: #333;
-  font-weight: 500;
-  line-height: 1.4;
+/* ---------------------------
+   LAYOUT
+---------------------------- */
+main.page {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+  position: relative;
+  z-index: 1;
 }
 
-/* Кнопка (червоний градієнт) */
-button.primary.danger {
-  background: linear-gradient(90deg, #ff6b6b, #ff4757, #ff6b6b);
-  background-size: 200% 200%;
-  animation: buttonGradientMove 6s ease infinite;
+.container {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+}
 
-  color: #fff;
-  border: 0;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 15px;
+/* ---------------------------
+   HEADINGS
+---------------------------- */
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2b2b2b;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+/* ---------------------------
+   INPUT AREA
+---------------------------- */
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  background: #fcfcfc;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.input-row input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(209,191,167,0.25);
+}
+
+/* ---------------------------
+   BUTTONS (Soft Paper Style)
+---------------------------- */
+button {
   cursor: pointer;
-
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  transition: transform .2s ease, box-shadow .2s ease;
+  border: 1px solid #dcdcdc;
+  border-radius: var(--radius);
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  background: #f6f5f3;
+  color: #333;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }
 
-button.primary.danger:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+button:hover {
+  background: #f0efed;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
 }
 
-/* Тонка лінія між блоками */
-.divider {
+button:active {
+  transform: scale(0.98);
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* ---------------------------
+   HINT TEXT
+---------------------------- */
+.hint {
+  font-size: 14px;
+  margin-top: 12px;
+  color: #666;
+}
+
+/* ---------------------------
+   MODAL — polished & animated
+---------------------------- */
+
+/* базова невидимість (модаль повинен бути в DOM, але не видимий) */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 60;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 260ms cubic-bezier(.2,.9,.25,1), visibility 260ms linear;
+  background: rgba(0,0,0,0.28); /* тонкий затемнювач */
+}
+
+/* коли відкрито — дозволяємо взаємодію та анімацію вмісту */
+.modal.is-open {
+  pointer-events: all;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* карточка модалі — початкова трохи стиснена, при відкритті scale -> 1 */
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: var(--paper);
+  border-radius: calc(var(--radius) - 4px);
+  border: 1px solid var(--border);
+  padding: 24px 20px 22px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
+  transform: translateY(6px) scale(0.985);
+  transition: transform 260ms cubic-bezier(.2,.9,.25,1), box-shadow 200ms ease;
+  text-align: left;
+}
+
+/* при відкритті робимо чисту кінцеву позицію */
+.modal.is-open .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+/* CLOSE BUTTON (хрестик) — компактний, справа зверху */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   border: none;
-  border-top: 1px solid rgba(0,0,0,0.15);
-  margin: 24px auto;
-  max-width: 540px;
+  font-size: 16px; /* трохи менше */
+  line-height: 1;
+  color: #666;
+  cursor: pointer;
+  transition: background 180ms ease, color 160ms ease, transform 140ms ease;
+  box-shadow: none;
 }
 
-/* 📱 Мобільна адаптація */
+/* hover/active states — делікатні */
+.modal-close:hover {
+  background: rgba(0,0,0,0.03);
+  color: #222;
+  transform: scale(1.06);
+}
+.modal-close:active { transform: scale(0.98); }
+
+
+
+/* HEADER */
+.modal-header {
+  padding-right: 38px; /* щоб заголовок не заходив під хрестик */
+}
+.modal-header h2 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2b2b2b;
+  text-align: left;
+}
+
+/* Вміст модалі (QR + мета) — вирівнювання і акуратні відступи */
+.qrcode-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0 16px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px dashed #e0e0e0;
+  background: #fbfbfb;
+}
+
+/* Мета/текст — вирівнюємо вліво, але виглядає в контексті */
+/* ---------------------------
+   QR MODAL — perfect text balance
+---------------------------- */
+
+.meta {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #444;
+  text-align: left;
+  max-height: 140px;           /* компактний блок */
+  overflow-y: auto;            /* прокрутка при надлишку */
+  overflow-x: hidden;
+  line-height: 1.5;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Контейнер тексту */
+#qr-text,
+.meta-text {
+  display: block;
+  max-width: 100%;
+  word-break: break-all;       /* розривати дуже довгі слова / посилання */
+  white-space: normal;         /* дозволити переноси */
+  overflow-wrap: anywhere;     /* переносити будь-де */
+  text-overflow: ellipsis;     /* якщо довге — трохи приховати */
+}
+
+/* Стиль прокрутки для елегантності */
+.meta::-webkit-scrollbar {
+  width: 6px;
+}
+.meta::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.meta::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+
+/* Кнопки внизу — центровані і з відступами */
+.qr-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+/* Мобільні корекції */
+@media (max-width: 520px) {
+  .modal-card { padding: 18px 14px 18px; max-width: 96%; }
+  .modal-header h2 { font-size: 16px; }
+  .modal-close { top: 8px; right: 10px; width: 30px; height: 30px; font-size: 15px; }
+}
+
+
+
+
+/* ---------------------------
+   SEO BLOCK
+---------------------------- */
+.seo-block {
+  max-width: 720px;
+  margin: 0px auto 60px;
+  padding: 0 24px;
+  padding-bottom: 100px;
+}
+
+.seo-block h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.seo-block p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+
+/* ---------------------------
+   TOAST (floating top notification)
+---------------------------- */
+
+#toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-40px);
+  background: var(--paper);
+  color: var(--text-color);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(.2, .9, .25, 1);
+  z-index: 120;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* коли зʼявляється */
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: all;
+}
+
+/* коли ховається */
+#toast.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-40px);
+  pointer-events: none;
+}
+
+
+/* ---------------------------
+   RESPONSIVE
+---------------------------- */
 @media (max-width: 600px) {
-  body {
-    padding: 16px;
+  .container {
+    padding: 30px 20px;
   }
 
-  .container {
-    padding: 24px 18px;
-    border-radius: 14px;
+  .input-row {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
   }
 
   .logo {
     font-size: 26px;
   }
+}
 
-  /* Інпут + кнопка одна під одною */
-  .input-row {
-    flex-direction: column;
-    gap: 10px;
+/* ---------------------------
+   INSTALL CARD (PWA prompt)
+---------------------------- */
+
+#installPrompt {
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+
+
+}
+
+.install-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 14px 18px;
+  max-width: 980px;
+  width: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: fadeInUp 0.4s ease both;
+}
+
+/* при появі */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  .input-row input {
-    font-size: 15px;
-    padding: 12px 14px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  button.primary {
-    width: 100%;
-    font-size: 15px;
-    padding: 12px 0;
-  }
+.install-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
 
-  /* Hint */
-  .hint {
-    font-size: 13px;
-    padding: 10px 14px;
-  }
+.install-text {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.4;
+  text-align: left;
+  flex: 1;
+}
 
-  /* Install card */
+/* Кнопка Install */
+#installBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius);
+  background: #4a90e2;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+  box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
+}
+
+#installBtn:hover {
+  background: #3f7fd0;
+  transform: translateY(-1px);
+}
+
+#installBtn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.25);
+}
+
+/* Divider */
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 28px 0 22px;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
   .install-card {
     flex-direction: column;
     align-items: stretch;
-    text-align: center;
     gap: 10px;
-    padding: 14px;
+    text-align: center;
   }
 
-  .install-card .install-text {
-    font-size: 14px;
-  }
-
-  .install-card #installBtn {
+  #installBtn {
     width: 100%;
   }
-
-  /* Modal */
-  .modal-card {
-    width: 100%;
-    max-width: 95%;
-    padding: 14px;
-  }
-
-  .modal-header h2 {
-    font-size: 16px;
-  }
-
-  .meta-text {
-    font-size: 12px;
-  }
-}
-
-/* Головна хвиля */
-.wave {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(79,172,254,0.5), transparent 70%);
-  transform: translate(-50%, -50%) scale(0);
-  pointer-events: none;
-  z-index: 999;
-  animation: waveExpand 1.4s ease-out forwards;
-}
-
-@keyframes waveExpand {
-  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-  50% { opacity: 0.8; }
-  100% { transform: translate(-50%, -50%) scale(27); opacity: 0; }
-}
-
-/* Частинки */
-.particle {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(79,172,254,1);
-  pointer-events: none;
-  z-index: 1000;
-  animation: particleMove 1.2s ease-out forwards;
-  box-shadow: 0 0 12px rgba(79,172,254,0.9), 0 0 24px rgba(0,242,254,0.7);
-}
-
-@keyframes particleMove {
-  0% {
-    transform: translate(0,0) scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--dx), var(--dy)) scale(0.4);
-    opacity: 0;
-  }
-}
-
-#installPrompt {
-  display: none;
 }
 

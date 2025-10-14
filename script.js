@@ -59,15 +59,24 @@ function createQR(text){
 }
 
 function openModal(){
-  modal.classList.remove('hidden');
-  modal.style.opacity = '1';
+  // додаємо клас is-open (створює плавну появу)
+  modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
+  // фокус на кнопку закриття для доступності
+  const closeBtn = document.getElementById('close-modal');
+  if (closeBtn) closeBtn.focus({ preventScroll: true });
 }
 
 function closeModalFn(){
-  modal.classList.add('hidden');
+  // плавно ховаємо (видаляємо класс is-open)
+  modal.classList.remove('is-open');
   modal.setAttribute('aria-hidden', 'true');
 }
+
+closeModal.addEventListener('click', closeModalFn);
+modal.addEventListener('click', (e) => {
+  if(e.target === modal) closeModalFn();
+});
 
 makeBtn.addEventListener('click', (e) => {
   const text = input.value.trim();
@@ -77,53 +86,8 @@ makeBtn.addEventListener('click', (e) => {
   }
 
   createQR(text);
+  openModal();
 
-  // координати кнопки
-  const rect = makeBtn.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-
-  // створюємо кілька хвиль
-  for (let i = 0; i < 3; i++) {
-    const wave = document.createElement('div');
-    wave.className = 'wave';
-    wave.style.left = `${centerX}px`;
-    wave.style.top = `${centerY}px`;
-    wave.style.animationDelay = `${i * 0.2}s`; // відставання між хвилями
-    document.body.appendChild(wave);
-    setTimeout(() => wave.remove(), 1600 + i * 200);
-  }
-
-  // створюємо світні частинки
-  for (let i = 0; i < 30; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = `${centerX}px`;
-    particle.style.top = `${centerY}px`;
-
-    // випадковий колір (синій-бірюзовий-білий)
-    const colors = [
-      "rgba(79,172,254,1)", 
-      "rgba(0,242,254,1)", 
-      "rgba(255,255,255,0.9)"
-    ];
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-
-    // випадковий розліт
-    const angle = Math.random() * 2 * Math.PI;
-    const distance = 120 + Math.random() * 140; // сильніший вибух
-    const dx = Math.cos(angle) * distance;
-    const dy = Math.sin(angle) * distance;
-
-    particle.style.setProperty('--dx', `${dx}px`);
-    particle.style.setProperty('--dy', `${dy}px`);
-
-    document.body.appendChild(particle);
-    setTimeout(() => particle.remove(), 1400);
-  }
-
-  // показуємо модалку через 1с
-  setTimeout(openModal, 1000);
 });
 
 
@@ -236,27 +200,5 @@ setInterval(updateInstallButton, 5000);
 
 
 
-// Theme toggle
-const themeBtn = document.getElementById("themeBtn");
-const currentTheme = localStorage.getItem("theme");
-
-if (currentTheme === "dark") {
-  document.body.classList.add("dark-mode");
-  themeBtn.textContent = "☀️";
-}
-
-themeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  let theme = "light";
-
-  if (document.body.classList.contains("dark-mode")) {
-    theme = "dark";
-    themeBtn.textContent = "☀️";
-  } else {
-    themeBtn.textContent = "🌙";
-  }
-
-  localStorage.setItem("theme", theme);
-});
 
 
