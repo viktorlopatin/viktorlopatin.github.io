@@ -14,7 +14,7 @@
 }
 
 .site-footer a {
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  background: linear-gradient(90deg, var(--accent1, #0078ff), var(--accent2, #00e0ff));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 600;
